@@ -1,5 +1,7 @@
 @echo off
 echo Sintaxe: create-cert ^<domainName^> ^<alternativeName^>
+rem Install OpenSSL from https://slproweb.com/products/Win32OpenSSL.html
+
 rem Parameters
 set OPENSSL_CONF=c:\openssl-win64\bin\openssl.cfg
 set path=%path%;c:\openssl-win64\bin\
