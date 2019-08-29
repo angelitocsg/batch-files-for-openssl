@@ -29,7 +29,7 @@ set Cert_Path=certificates
 set Cert_KEY=%Cert_Path%\%domainName%.key
 set Cert_CSR=%Cert_Path%\%domainName%.csr
 set Cert_CRT=%Cert_Path%\%domainName%.crt
-
+set Cert_PFX=%Cert_Path%\%domainName%_keystore.pfx
 set Cert_KeyStore=%Cert_Path%\%domainName%_keystore.pkcs12
 
 rem Run
@@ -45,11 +45,12 @@ echo Creating a custom config SSL
 echo authorityKeyIdentifier=keyid,issuer> %config_ssl%
 echo basicConstraints = CA:FALSE>> %config_ssl%
 echo keyUsage=digitalSignature,nonRepudiation,keyEncipherment,dataEncipherment>> %config_ssl%
-if %alternativeName% NEQ 0 (
     echo subjectAltName = @alt_names>> %config_ssl%
     echo.>> %config_ssl%
     echo [alt_names]>> %config_ssl%
-    echo DNS.1 = %alternativeName% >> %config_ssl%
+echo DNS.1 = %RootDomain% >> %config_ssl%
+if %alternativeName% NEQ 0 (
+    echo DNS.2 = %alternativeName% >> %config_ssl%
 )
 
 echo.
@@ -61,6 +62,7 @@ echo.
 echo Creating certificates package
 echo.
 openssl pkcs12 -export -inkey %Cert_KEY% -in %Cert_CRT% -out %Cert_KeyStore%
+copy %Cert_KeyStore% %Cert_PFX%
 
 del %config_ssl%
 
