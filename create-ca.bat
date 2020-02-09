@@ -14,7 +14,7 @@ set CompanyName="ACME Corporation"
 set Country="BR"
 set State="Sao Paulo"
 set Locale="Sao Paulo"
-set RootDomain="%domainName%"
+set RootDomain=%domainName%
 
 set CA_Days=3650
 set CA_Name=myCA
@@ -28,7 +28,7 @@ mkdir %CA_Path%
 echo.
 openssl genrsa -aes256 -out %CA_KEY% 2048
 echo.
-openssl req -x509 -new -nodes -key %CA_KEY% -sha256 -out %CA_PEM% -days %CA_Days% -subj /CN=%RootDomain%/O=%CompanyName%/C=%Country%/ST=%State%/L=%Locale%
+openssl req -x509 -new -nodes -key %CA_KEY% -sha256 -out %CA_PEM% -days %CA_Days% -subj /CN="ACME Corporation"/O=%CompanyName%/C=%Country%/ST=%State%/L=%Locale%
 copy %CA_PEM% %CA_CRT%
 
 pause   
