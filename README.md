@@ -6,6 +6,22 @@ Batch files to create a custom CA (Certificate Authority) and self-signed certif
 
 Install OpenSSL from https://slproweb.com/products/Win32OpenSSL.html
 
+## Output files
+
+| File                  | Description                     |
+| --------------------- | ------------------------------- |
+| `myCA.crt`            | Certificate                     |
+| `myCA.pem`            | Certificate                     |
+| `myCA.key`            | Private key                     |
+| `myCA.srl`            | Serial                          |
+|                       |                                 |
+| `<domainName>.pfx`    | Keystore pfx                    |
+| `<domainName>.pkcs12` | Keystore pkcs12                 |
+| `<domainName>.crt`    | Certificate                     |
+| `<domainName>.csr`    | Certificate Signing Request     |
+| `<domainName>.key`    | Private key                     |
+| `<domainName>.bundle` | `<domainName>.crt` + `myCA.crt` |
+
 ## Creating your own CA (Certificate Authority)
 
 Edit the `create-ca.bat` file with your data.

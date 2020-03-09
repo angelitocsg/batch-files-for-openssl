@@ -24,18 +24,19 @@ set CA_Path=ca-certificate
 set CA_KEY=%CA_Path%\%CA_Name%.key
 set CA_PEM=%CA_Path%\%CA_Name%.pem
 
-set Cert_Days=3650
+set Cert_Days=180
 set Cert_Path=certificates
 set Cert_KEY=%Cert_Path%\%domainName%.key
 set Cert_CSR=%Cert_Path%\%domainName%.csr
 set Cert_CRT=%Cert_Path%\%domainName%.crt
+set Cert_BUNDLE=%Cert_Path%\%domainName%.bundle
 set Cert_PFX=%Cert_Path%\%domainName%_keystore.pfx
 set Cert_KeyStore=%Cert_Path%\%domainName%_keystore.pkcs12
 
 rem Run
 mkdir %Cert_Path%
 echo.
-openssl genrsa -out %Cert_KEY% 2048
+openssl genrsa -out %Cert_KEY% 8192
 echo.
 echo Making a CSR (Certificate Signing Request)
 openssl req -new -key %Cert_KEY% -out %Cert_CSR% -subj /CN=%RootDomain%/O=%CompanyName%/C=%Country%/ST=%State%/L=%Locale%
@@ -65,5 +66,7 @@ openssl pkcs12 -export -inkey %Cert_KEY% -in %Cert_CRT% -out %Cert_KeyStore%
 copy %Cert_KeyStore% %Cert_PFX%
 
 del %config_ssl%
+
+type %Cert_CRT% %CA_PEM% > %Cert_BUNDLE%
 
 pause

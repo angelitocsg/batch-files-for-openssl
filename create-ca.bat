@@ -26,9 +26,9 @@ set CA_CRT=%CA_Path%\%CA_Name%.crt
 rem Run
 mkdir %CA_Path%
 echo.
-openssl genrsa -aes256 -out %CA_KEY% 2048
+openssl genrsa -aes256 -out %CA_KEY% 8192
 echo.
-openssl req -x509 -new -nodes -key %CA_KEY% -sha256 -out %CA_PEM% -days %CA_Days% -subj /CN="ACME Corporation"/O=%CompanyName%/C=%Country%/ST=%State%/L=%Locale%
+openssl req -x509 -new -nodes -key %CA_KEY% -sha256 -out %CA_PEM% -days %CA_Days% -subj /CN=%RootDomain%/O=%CompanyName%/C=%Country%/ST=%State%/L=%Locale%
 copy %CA_PEM% %CA_CRT%
 
 pause   
